@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/* Login layout and palette matched to the supplied interface PDF. */
+:root { --jsg-navy: #0b3268; --jsg-gold: #c69b22; }
+.jsg-login-page { min-height:100dvh; background:#f6f8fb; display:flex; align-items:center; justify-content:center; padding:28px; color:var(--jsg-navy); font-family:Arial,Helvetica,sans-serif; }
+.jsg-login-shell { width:1140px; max-width:100%; display:grid; grid-template-columns:51.5% 48.5%; border-radius:17px; overflow:hidden; background:white; box-shadow:0 3px 18px #162a4720; }
+.jsg-login-brand { position:relative; min-height:700px; background:linear-gradient(115deg,#f8fbff 0%,#e8f2fd 90%); overflow:hidden; }
+.jsg-login-brand-copy { position:relative; z-index:2; padding:34px 74px 0; }
+.jsg-login-logo { width:136px; height:136px; object-fit:contain;  margin-bottom:20px; }
+.jsg-login-brand h1 { font-size:35px; line-height:1.2; font-weight:750; letter-spacing:-1.3px; margin:0; }
+.jsg-login-brand h1 span { color:var(--jsg-gold); }
+.jsg-login-rule { width:48px; height:2px; background:#e9ca73; margin:13px 0; }
+.jsg-login-brand-copy>p { font-size:13px; line-height:1.45; color:#304361; }
+.jsg-login-brand-copy>p strong { color:var(--jsg-navy); font-weight:700; }
+.jsg-login-courthouse { position:absolute; bottom:0; width:100%; height:357px; object-fit:fill; }
+.jsg-login-features { position:absolute; z-index:3; left:45px; right:108px; bottom:36px; border:1px solid #afad874f; border-radius:12px; background:linear-gradient(120deg,#174a83ee,#082e66ee); box-shadow:0 3px 10px #071c4e30; display:grid; grid-template-columns:repeat(4,1fr); padding:12px 8px; color:white; }
+.jsg-login-features>div { text-align:center; border-right:1px solid #ffffff26; }.jsg-login-features>div:last-child { border:0; }
+.jsg-login-features span { display:flex; align-items:center; justify-content:center; background:#fff; color:var(--jsg-navy); border-radius:50%; width:34px; height:34px; margin:0 auto 8px; }.jsg-login-features>div:first-child span,.jsg-login-features>div:last-child span { color:#aa8a31; }
+.jsg-login-features p { font-size:10px; line-height:1.4; margin:0; }
+.jsg-login-right { background:#fefefe; padding:25px 40px 36px; }
+.jsg-login-top { display:flex; justify-content:flex-end; gap:19px; align-items:center; font-size:10px; font-weight:600; margin-bottom:27px; }.jsg-login-top span,.jsg-login-top button { display:flex; align-items:center; gap:7px; }.jsg-login-top i { height:16px; width:1px; background:#ccc; }
+.jsg-login-card { border:1px solid #efefef; border-radius:17px; box-shadow:0 2px 17px #102d5810; padding:32px 47px 25px; background:#fff; }
+.jsg-login-welcome { font-size:15px; font-weight:700; color:#b78e1c; margin:0 0 4px; }.jsg-login-card h2 { font-size:24px; font-weight:700; letter-spacing:-.65px; line-height:1.25; margin:0 0 6px; }.jsg-login-subtitle { font-size:12px; color:#526078; margin-bottom:26px; }
+.jsg-login-card form>label { display:block; font-size:12px; font-weight:600; margin:17px 0 7px; }.jsg-login-field { display:flex; align-items:center; gap:10px; border:1px solid #e2e5ea; border-radius:5px; padding:0 11px; height:40px; background:#fff; }.jsg-login-field:focus-within { outline:2px solid #acc9eb; }.jsg-login-field>svg { flex-shrink:0; color:#144987; }.jsg-login-field .jsg-role-icon { color:#cba52e; }.jsg-login-field input,.jsg-login-field select { width:100%; min-width:0; height:100%; border:0; outline:none; background:transparent; font-size:11px; color:#30425d; }.jsg-login-field input::placeholder { color:#788397; }
+.jsg-login-options { display:flex; justify-content:space-between; gap:10px; font-size:10px; margin:16px 0 21px; }.jsg-login-options label { display:flex; align-items:center; gap:7px; }.jsg-login-options input { accent-color:#1455a5; }.jsg-login-options button { color:#06469c; }
+.jsg-login-submit { width:100%; height:41px; background:#0b3268; color:white; border-radius:4px; display:flex; align-items:center; justify-content:center; gap:12px; font-size:12px; box-shadow:0 2px 4px #133c6b12; }.jsg-login-submit:hover { background:#124782; }
+.jsg-login-divider { display:flex; align-items:center; gap:13px; color:#67748a; font-size:10px; margin:19px 0 16px; }.jsg-login-divider span { height:1px; flex:1; background:#ddd; }
+.jsg-login-sso { width:100%; border:1px solid #ead79c; border-radius:5px; display:flex; justify-content:center; align-items:center; gap:11px; height:42px; font-size:12px; font-weight:600; color:#b18c22; }
+.jsg-login-register { text-align:center; font-size:12px; margin:33px 0 0; }.jsg-login-register button { color:#06459c; font-weight:600; margin-left:7px; }
+.jsg-login-help { font-size:11px; padding:9px; background:#eef5fc; line-height:1.5; margin-bottom:10px; }.jsg-login-error { font-size:12px; color:#b42318; margin-bottom:10px; }
+.jsg-login-footer { grid-column:1/-1; display:flex; align-items:center; justify-content:space-between; gap:15px; background:linear-gradient(#174b98,#072b61); color:white; min-height:59px; font-size:10px; padding-left:45px; }.jsg-login-protection { display:flex; align-items:center; gap:9px; }.jsg-login-protection p { line-height:1.5; margin:0; }.jsg-login-protection strong { font-weight:500; }.jsg-login-protection span { font-size:9px; }.jsg-login-footer>p { font-size:9px; }.jsg-login-footer-links { display:flex; gap:0; font-size:9px; }.jsg-login-footer-links button { padding:0 13px; border-right:1px solid #ffffff55; }.jsg-login-footer-links button:last-child { border:0; }.jsg-login-support { align-self:stretch; display:flex; align-items:center; gap:11px; background:linear-gradient(#e4bb2d,#b38713); border-radius:10px 0 0 0; padding:12px 18px; text-align:left; min-width:235px; line-height:1.5; }.jsg-login-support strong { font-weight:600; }
+.jsg-login-page button { cursor:pointer; }.jsg-login-page button:focus-visible { outline:2px solid #69a4e8; outline-offset:3px; }
+@media(max-width:1050px) { .jsg-login-brand-copy { padding-left:40px;padding-right:30px; }.jsg-login-right { padding-left:25px;padding-right:25px; }.jsg-login-card { padding-left:28px;padding-right:28px; }.jsg-login-features { left:25px;right:25px; }.jsg-login-footer { padding-left:20px;gap:10px; }.jsg-login-footer-links { display:none; }.jsg-login-support { min-width:200px; } }
+@media(max-width:720px) { .jsg-login-page { padding:14px;align-items:flex-start; }.jsg-login-shell { grid-template-columns:1fr; }.jsg-login-brand { min-height:530px; }.jsg-login-brand-copy { padding:25px 30px; }.jsg-login-logo { width:85px;height:85px;margin-bottom:12px; }.jsg-login-brand h1 { font-size:29px; }.jsg-login-brand-copy>p { font-size:11px; }.jsg-login-courthouse { height:250px; }.jsg-login-features { bottom:20px; }.jsg-login-right { padding:20px; }.jsg-login-top { margin-bottom:17px; }.jsg-login-card { padding:24px; }.jsg-login-footer { flex-wrap:wrap;padding:16px;gap:14px; }.jsg-login-support { border-radius:6px;min-width:0;width:100%; }.jsg-desktop-break { display:none; } }
+
+/* Preserve original emblem colours; outer margin is clipped in the SVG asset. */
+.jsg-login-logo { background:transparent; }
