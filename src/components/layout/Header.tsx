@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Search,
   Bell,
@@ -35,6 +35,19 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [showRoleMenu, setShowRoleMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentDateStr, setCurrentDateStr] = useState<string>('');
+
+  useEffect(() => {
+    const now = new Date();
+    setCurrentDateStr(
+      now.toLocaleDateString('en-GB', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+    );
+  }, []);
 
   const getScreenTitleAndSubtitle = () => {
     switch (currentScreen) {
@@ -147,7 +160,9 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Date Display */}
         <div className="hidden lg:flex items-center gap-1.5 text-xs text-slate-600 bg-slate-100/80 px-2.5 py-1 rounded-md border border-slate-200">
           <CalendarIcon className="w-3.5 h-3.5 text-slate-500" />
-          <span className="font-medium">Tuesday, 20 May 2024</span>
+          <span className="font-medium" suppressHydrationWarning>
+            {currentDateStr || 'Today'}
+          </span>
         </div>
 
         {/* Mobile Preview Toggle */}

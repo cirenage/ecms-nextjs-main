@@ -580,14 +580,14 @@ export const LawyerDashboard: React.FC<LawyerDashboardProps> = ({
               </button>
 
               <button
-                onClick={() => onNavigate('my_cases')}
+                onClick={() => onNavigate('subsequent_filings')}
                 className="p-2.5 rounded-lg border border-slate-200 hover:border-purple-400 hover:bg-purple-50/50 text-left transition-all group"
               >
                 <div className="w-7 h-7 rounded bg-purple-100 text-purple-700 flex items-center justify-center mb-1 group-hover:bg-purple-600 group-hover:text-white transition-colors">
                   <Upload className="w-4 h-4" />
                 </div>
-                <p className="text-xs font-bold text-slate-900">Upload Document</p>
-                <p className="text-[10px] text-slate-500">Upload to a case</p>
+                <p className="text-xs font-bold text-slate-900">Subsequent Filing</p>
+                <p className="text-[10px] text-slate-500">File into active case</p>
               </button>
 
               <button

@@ -6,7 +6,9 @@ export type UserRole =
   | 'filing_clerk'
   | 'court_clerk'
   | 'chief_bailiff'
-  | 'public_bailiff';
+  | 'public_bailiff'
+  | 'payment_officer'
+  | 'litigant';
 
 export interface UserProfile {
   id: string;
@@ -91,21 +93,64 @@ export interface CaseRecord {
   intakeRef?: string;
 }
 
+export type FilingStatus =
+  | 'Draft'
+  | 'Submitted'
+  | 'Under Review'
+  | 'Correction Required'
+  | 'Awaiting Payment'
+  | 'Payment Confirmed'
+  | 'Ready for Registration'
+  | 'Registered'
+  | 'Returned / Rejected'
+  | 'Withdrawn'
+  // Backward compatibility aliases
+  | 'Clarification'
+  | 'Approved'
+  | 'Rejected';
+
+export interface FilingActivity {
+  id: string;
+  timestamp: string;
+  actor: string;
+  actorRole: string;
+  action: string;
+  notes?: string;
+  previousStatus?: string;
+  newStatus?: string;
+}
+
+export interface CorrectionRequestItem {
+  id: string;
+  requestedAt: string;
+  requestedBy: string;
+  reason: string;
+  notes: string;
+  resolvedAt?: string;
+  resolvedNotes?: string;
+}
+
 export interface FilingItem {
   id: string;
   intakeId: string;
   filingReference: string;
+  provisionalCaseId?: string;
   caseTitle: string;
   court: string;
+  courtLevel?: string;
+  region?: string;
+  courtStation?: string;
   division: string;
+  caseCategory?: string;
   caseType: string;
+  filingType?: string;
   natureOfClaim: string;
   claimAmount: string;
   estimatedFees: string;
   submittedBy: string;
   submittedByRole: string;
   submissionDate: string;
-  status: 'Draft' | 'Submitted' | 'Under Review' | 'Clarification' | 'Approved' | 'Rejected';
+  status: FilingStatus;
   paymentStatus: 'Paid' | 'Pending Payment' | 'Fees Exempt';
   checklist: {
     allDocumentsUploaded: boolean;
@@ -119,6 +164,62 @@ export interface FilingItem {
   parties: CaseParty[];
   briefDescription: string;
   registrarNotes?: string;
+  internalNotes?: string;
+  correctionRequests?: CorrectionRequestItem[];
+  activities?: FilingActivity[];
+  invoiceId?: string;
+  transactionRef?: string;
+  registeredSuitNumber?: string;
+  registeredAt?: string;
+  registeredBy?: string;
+}
+
+export interface SubsequentFilingItem {
+  id: string;
+  caseId: string;
+  suitNumber: string;
+  caseTitle: string;
+  filingRef: string;
+  documentType: string;
+  documentTitle: string;
+  submittedBy: string;
+  submittingPartyRole: string;
+  submissionDate: string;
+  status: 'Submitted' | 'Under Review' | 'Accepted' | 'Rejected';
+  feeAmount: number;
+  paymentStatus: 'Paid' | 'Pending' | 'Exempt';
+  document: CaseDocument;
+  reviewNotes?: string;
+  acceptedAt?: string;
+}
+
+export interface ValidationIssue {
+  field?: string;
+  message: string;
+  type: 'error' | 'warning';
+}
+
+export interface ValidationResult {
+  isValid: boolean;
+  errors: string[];
+  warnings: string[];
+}
+
+export interface FeeLineItem {
+  id: string;
+  description: string;
+  category: string;
+  amount: number;
+}
+
+export interface FeeAssessment {
+  filingRef: string;
+  lineItems: FeeLineItem[];
+  subtotal: number;
+  itLevy: number;
+  total: number;
+  isExempt: boolean;
+  exemptionReason?: string;
 }
 
 export interface HearingItem {

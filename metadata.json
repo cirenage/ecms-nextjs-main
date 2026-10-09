@@ -1,0 +1,7 @@
+{
+  "name": "JSG eCMS 2.0 - Judicial Service of Ghana",
+  "description": "Judicial Service of Ghana Electronic Case Management System: Specialised Courts Platform, E-Filing, Intake, Cause Lists, and Judicial Workflow.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

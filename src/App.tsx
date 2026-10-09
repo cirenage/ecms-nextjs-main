@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import { UserRole, UserProfile, CaseRecord, FilingItem } from './types';
 import { repository } from './data/caseRepository';
@@ -19,6 +20,9 @@ import { InvoicesPaymentsScreen } from './components/screens/InvoicesPaymentsScr
 import { VirtualCourtScreen } from './components/screens/VirtualCourtScreen';
 import { HearingsCalendarScreen } from './components/screens/HearingsCalendarScreen';
 import { MobileResponsivePreview } from './components/screens/MobileResponsivePreview';
+import { MyFilingsScreen } from './components/screens/MyFilingsScreen';
+import { SubsequentFilingsScreen } from './components/screens/SubsequentFilingsScreen';
+import { FilingReceiptsScreen } from './components/screens/FilingReceiptsScreen';
 import { Sparkles, Info, Shield, CheckCircle } from 'lucide-react';
 
 export default function App() {
@@ -279,6 +283,93 @@ export default function App() {
             />
           )}
 
+          {/* Orders & Judgments / Rulings */}
+          {currentScreen === 'orders_judgments' && (
+            <CaseRegistryScreen
+              currentUser={currentUser}
+              cases={cases}
+              onSelectCase={(c) => {
+                setSelectedCase(c);
+                setCurrentScreen('case_tracking');
+              }}
+              onNavigate={(s) => setCurrentScreen(s)}
+            />
+          )}
+
+          {/* External Lawyer / Staff: My Filings */}
+          {(currentScreen === 'filing_list' || currentScreen === 'filing_drafts') && (
+            <MyFilingsScreen
+              currentUser={currentUser}
+              onNavigate={(s) => setCurrentScreen(s)}
+              onSelectFiling={(f) => {
+                setSelectedFiling(f);
+                if (currentUser.role === 'registrar') {
+                  setCurrentScreen('intake_review');
+                }
+              }}
+              onTrackCase={(suitNo) => {
+                const matched = cases.find((c) => c.suitNumber === suitNo);
+                if (matched) setSelectedCase(matched);
+                setCurrentScreen('case_tracking');
+              }}
+            />
+          )}
+
+          {/* Subsequent Filings on Existing Cases */}
+          {currentScreen === 'subsequent_filings' && (
+            <SubsequentFilingsScreen
+              currentUser={currentUser}
+              cases={cases}
+              onNavigate={(s) => setCurrentScreen(s)}
+              onSelectCase={(c) => {
+                setSelectedCase(c);
+                setCurrentScreen('case_tracking');
+              }}
+            />
+          )}
+
+          {/* Official Electronic Filing Receipts Repository */}
+          {currentScreen === 'filing_receipts' && (
+            <FilingReceiptsScreen
+              currentUser={currentUser}
+              cases={cases}
+              onNavigate={(s) => setCurrentScreen(s)}
+              onTrackCase={(suitNo) => {
+                const matched = cases.find((c) => c.suitNumber === suitNo);
+                if (matched) setSelectedCase(matched);
+                setCurrentScreen('case_tracking');
+              }}
+            />
+          )}
+
+          {/* Direct efiling parent route handler */}
+          {currentScreen === 'efiling' && (
+            currentUser.role === 'registrar' || currentUser.role === 'filing_clerk' ? (
+              <RegistrarIntakeScreen
+                currentUser={currentUser}
+                filing={selectedFiling}
+                onNavigate={(s) => setCurrentScreen(s)}
+                onProceedToAssignment={(f) => {
+                  const targetCase = repository.getCases().find(
+                    (c) => c.filingRef === f.filingReference || c.caseTitle === f.caseTitle
+                  );
+                  if (targetCase) setSelectedCase(targetCase);
+                  setCurrentScreen('case_assignment');
+                }}
+              />
+            ) : (
+              <MyFilingsScreen
+                currentUser={currentUser}
+                onNavigate={(s) => setCurrentScreen(s)}
+                onTrackCase={(suitNo) => {
+                  const matched = cases.find((c) => c.suitNumber === suitNo);
+                  if (matched) setSelectedCase(matched);
+                  setCurrentScreen('case_tracking');
+                }}
+              />
+            )
+          )}
+
           {/* Invoices & Ecobank Payments */}
           {currentScreen === 'bills_payments' && (
             <InvoicesPaymentsScreen
@@ -296,6 +387,12 @@ export default function App() {
             'judge_dashboard',
             'lawyer_dashboard',
             'filing_new',
+            'filing_list',
+            'filing_drafts',
+            'subsequent_filings',
+            'filing_receipts',
+            'orders_judgments',
+            'efiling',
             'intake_review',
             'case_assignment',
             'hearing_scheduling',

@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   title: 'JSG eCMS 2.0 - Judicial Service of Ghana',
   description:
     'Judicial Service of Ghana Electronic Case Management System: Specialised Courts Platform, E-Filing, Intake, Cause Lists, and Judicial Workflow.',
+  openGraph: {
+    title: 'JSG eCMS 2.0 - Judicial Service of Ghana',
+    description:
+      'Judicial Service of Ghana Electronic Case Management System: Specialised Courts Platform, E-Filing, Intake, Cause Lists, and Judicial Workflow.',
+  },
 };
 
 export default function RootLayout({

@@ -69,9 +69,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
             label: 'E-Filing',
             icon: FileText,
             subItems: [
-              { id: 'filing_new', label: 'New Filing' },
-              { id: 'filing_drafts', label: 'Draft Filings' },
+              { id: 'filing_new', label: 'File New Case' },
               { id: 'filing_list', label: 'My Filings' },
+              { id: 'subsequent_filings', label: 'Subsequent Filings' },
+              { id: 'filing_receipts', label: 'Filing Receipts' },
             ],
           },
           { id: 'hearings_calendar', label: 'Hearings & Calendar', icon: Calendar },
@@ -102,6 +103,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
               { id: 'filing_new', label: 'New Filing' },
               { id: 'intake_review', label: 'Intake Queue' },
               { id: 'case_assignment', label: 'Case Assignment' },
+              { id: 'subsequent_filings', label: 'Subsequent Filings' },
+              { id: 'filing_receipts', label: 'Filing Receipts' },
             ],
           },
           { id: 'my_cases', label: 'Cases', icon: Briefcase },
@@ -156,7 +159,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
           return (
             <div key={item.id} className="space-y-0.5">
               <button
-                onClick={() => onNavigate(item.id)}
+                onClick={() => {
+                  if (item.subItems && item.subItems.length > 0) {
+                    const isAlreadyInSub = item.subItems.some((sub) => sub.id === currentScreen);
+                    if (!isAlreadyInSub) {
+                      onNavigate(item.subItems[0].id);
+                      return;
+                    }
+                  }
+                  onNavigate(item.id);
+                }}
                 className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-lg transition-all text-left font-medium ${
                   isActive
                     ? 'bg-[#E5A824] text-slate-950 shadow-sm font-semibold'
